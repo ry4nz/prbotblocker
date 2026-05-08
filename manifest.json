@@ -15,5 +15,14 @@
   ],
   "options_page": "options.html",
   "background": { "service_worker": "background.js" },
-  "action": { "default_title": "PR Bot Blocker — click to configure" }
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "PR Bot Blocker"
+  },
+  "commands": {
+    "toggle-enabled": {
+      "suggested_key": { "default": "Alt+Shift+B" },
+      "description": "Toggle PR Bot Blocker on/off"
+    }
+  }
 }

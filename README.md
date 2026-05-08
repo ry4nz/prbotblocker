@@ -14,9 +14,17 @@ A Chrome extension that hides bot comments on GitHub pull request, issue, and di
 4. Click **Load unpacked** and select the `prbotblocker` folder.
 5. The extension is now active on `https://github.com/*`.
 
+## Turn it on/off
+
+Three ways:
+
+- **Toolbar popup** — click the extension's toolbar icon and flip the toggle. When disabled, an `OFF` badge appears on the icon.
+- **Keyboard shortcut** — `Alt+Shift+B` toggles it on/off. You can change this at `chrome://extensions/shortcuts`.
+- **Per-site disable** — right-click the toolbar icon → "This can read and change site data" → "When you click the extension". Chrome's built-in mechanism for fully disabling on github.com.
+
 ## Configure the bot list
 
-- Click the extension's toolbar icon (pin it from the puzzle-piece menu if it's hidden) — this opens the options page.
+- Click the extension's toolbar icon, then **Configure bot list…** in the popup.
 - Or go to `chrome://extensions`, find **PR Bot Blocker**, click **Details** → **Extension options**.
 
 Enter one bot username per line, then **Save**. Matching is case-insensitive and the trailing `[bot]` suffix is ignored, so `github-actions` matches `github-actions[bot]`.

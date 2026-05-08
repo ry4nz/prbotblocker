@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: -apple-system, system-ui, "Segoe UI", sans-serif; padding: 12px 14px; min-width: 240px; color: #1f2328; margin: 0; }
+    .row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .row + .row { margin-top: 10px; }
+    .label { font-size: 14px; font-weight: 600; }
+    .switch { position: relative; width: 40px; height: 22px; flex-shrink: 0; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider { position: absolute; inset: 0; background: #c9d1d9; border-radius: 22px; transition: 0.15s; cursor: pointer; }
+    .slider::before { content: ""; position: absolute; left: 3px; top: 3px; width: 16px; height: 16px; background: white; border-radius: 50%; transition: 0.15s; }
+    .switch input:checked + .slider { background: #2da44e; }
+    .switch input:checked + .slider::before { transform: translateX(18px); }
+    button { width: 100%; padding: 6px 10px; cursor: pointer; border: 1px solid #d0d7de; border-radius: 6px; background: #f6f8fa; font-size: 13px; }
+    button:hover { filter: brightness(0.97); }
+    .meta { font-size: 12px; color: #57606a; }
+    kbd { background: #eaeef2; border-radius: 4px; padding: 1px 4px; font-size: 11px; font-family: ui-monospace, monospace; }
+  </style>
+</head>
+<body>
+  <div class="row">
+    <span class="label">PR Bot Blocker</span>
+    <label class="switch">
+      <input type="checkbox" id="enabled">
+      <span class="slider"></span>
+    </label>
+  </div>
+  <div class="meta" id="state" style="margin-top: 6px;">…</div>
+  <div class="meta" style="margin-top: 6px;">Toggle: <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>B</kbd></div>
+  <div class="row" style="margin-top: 12px;">
+    <button id="options">Configure bot list…</button>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

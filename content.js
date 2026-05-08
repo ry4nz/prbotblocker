@@ -14,6 +14,7 @@ const DEFAULT_BOTS = [
 ];
 
 let botSet = new Set();
+let enabled = true;
 
 function normalize(name) {
   return (name || '').trim().toLowerCase().replace(/\[bot\]$/, '');
@@ -30,7 +31,7 @@ const TOP_LEVEL_CONTAINERS = [
 ].join(',');
 
 function hideComments() {
-  if (botSet.size === 0 || !isApplicablePage()) return;
+  if (!enabled || botSet.size === 0 || !isApplicablePage()) return;
 
   document.querySelectorAll('a.author').forEach(authorEl => {
     const name = normalize(authorEl.textContent);
@@ -61,9 +62,11 @@ function scheduleHide() {
 }
 
 function loadAndApply() {
-  chrome.storage.sync.get({ bots: DEFAULT_BOTS }, ({ bots }) => {
-    botSet = new Set(bots.map(normalize).filter(Boolean));
-    hideComments();
+  chrome.storage.sync.get({ bots: DEFAULT_BOTS, enabled: true }, (result) => {
+    enabled = result.enabled;
+    botSet = new Set(result.bots.map(normalize).filter(Boolean));
+    if (enabled) hideComments();
+    else unhideAll();
   });
 }
 
@@ -73,8 +76,13 @@ const observer = new MutationObserver(scheduleHide);
 observer.observe(document.body, { childList: true, subtree: true });
 
 chrome.storage.onChanged.addListener((changes, area) => {
-  if (area !== 'sync' || !changes.bots) return;
-  botSet = new Set((changes.bots.newValue || []).map(normalize).filter(Boolean));
+  if (area !== 'sync') return;
+  if (changes.bots) {
+    botSet = new Set((changes.bots.newValue || []).map(normalize).filter(Boolean));
+  }
+  if (changes.enabled) {
+    enabled = changes.enabled.newValue;
+  }
   unhideAll();
-  hideComments();
+  if (enabled) hideComments();
 });
