@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "PR Bot Blocker",
+  "version": "1.0.0",
+  "description": "Hide bot comments on GitHub pull request and issue pages.",
+  "permissions": ["storage"],
+  "host_permissions": ["https://github.com/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://github.com/*"],
+      "js": ["content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "options_page": "options.html",
+  "background": { "service_worker": "background.js" },
+  "action": { "default_title": "PR Bot Blocker — click to configure" }
+}
